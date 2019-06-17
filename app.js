@@ -18,7 +18,7 @@ const User = require('./models/user')
 //starting app and mongoDb local storage server
 const app = express();
 const store = new MongoDBStore({
-  uri: 'mongodb://localhost:27017/shoppingMongoose',
+  uri: `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PWD}@cluster0-tr9bs.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`,
   collection: 'sessions'
 });
 const csrfProtection = new csrf();

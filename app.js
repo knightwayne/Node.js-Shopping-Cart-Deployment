@@ -8,6 +8,9 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const flash = require('connect-flash');
 const multer = require('multer');
+const helmet = require('helmet');
+const compression = require('compression');
+const morgan = require('morgan');
 
 const errorController = require('./controllers/error');
 const User = require('./models/user')
@@ -93,10 +96,13 @@ app.use(function(err,req,res,next){
 });
 
 //connecting with db-local and setting up server
-mongoose.connect('mongodb://localhost:27017/shoppingMongoose', {useNewUrlParser: true})
+//'mongodb+srv://nightwayne:bat@cluster0-tr9bs.mongodb.net/shoppingMongoose?retryWrites=true&w=majority'
+mongoose.connect(
+  `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PWD}@cluster0-tr9bs.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`/*'mongodb://localhost:27017/shoppingMongoose'*/,
+  {useNewUrlParser: true})
 .then(result => {
-  console.log('Connected to local server!');
-  app.listen(3000);
+  console.log('Connected to mongoDB server!');
+  app.listen(process.env.MONGO_PORT||3000);
 })
 .catch(err => {
   console.log(err);

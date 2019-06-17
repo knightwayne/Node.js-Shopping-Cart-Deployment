@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "working around with express.js",
   "main": "app.js",
+  "engines": {
+    "node": "10.15.3"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "MONGO_USER=nightwayne MONGO_PWD=bat MONGO_DB=shoppingCart-deploy NodeMailer_API_KEY=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 node app.js",
